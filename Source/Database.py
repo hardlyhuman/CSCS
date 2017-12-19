@@ -25,4 +25,7 @@ conn.execute(("""CREATE TABLE "user" (
 
 print("Successfully Created User Table")
 
-conn.execute()
+#   Index Creation ON user(model) - IP (field)
+conn.execute("""CREATE INDEX "user_ip" ON "user" ("IP");""")
+
+print("Indexed User Model ON IP Field")
