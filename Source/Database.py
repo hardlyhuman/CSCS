@@ -62,3 +62,8 @@ conn.execute(("""CREATE TABLE "cpuinfo" (
 );"""))
 
 print("Successfully Created CPUInfo Table")
+
+#   Index Creation ON cpuinfo(model) - IP (field)
+conn.execute("""CREATE INDEX "cpuinfo_ip" ON "cpuinfo" ("IP");""")
+
+print("Indexed cpuinfo Model ON IP Field")
