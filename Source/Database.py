@@ -4,7 +4,7 @@ import sqlite3
 conn = sqlite3.connect('CSCSMaster.db')
 print("Successful connection with database")
 
-#   System model Creation
+#   System Model Creation
 conn.execute(("""CREATE TABLE "system" ( 
                 "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 "IP" CHAR(15) NOT NULL,
@@ -14,7 +14,7 @@ conn.execute(("""CREATE TABLE "system" (
 
 print("Successfully Created System Table")
 
-
+#   User Model Creation
 conn.execute(("""CREATE TABLE "user" (
                  "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                  "NAME" VARCHAR(30) NULL ,
@@ -24,3 +24,5 @@ conn.execute(("""CREATE TABLE "user" (
                  );"""))
 
 print("Successfully Created User Table")
+
+conn.execute()
