@@ -38,8 +38,6 @@ conn.execute(("""CREATE TABLE "user" (
 
 #print("Successfully Created User Table")
 
-#   Index Creation ON user(model) - IP (field)
-conn.execute("""CREATE INDEX "user_ip" ON "user" ("IP");""")
 
 #print("Indexed User Model ON IP Field")
 
@@ -63,9 +61,6 @@ conn.execute(("""CREATE TABLE "cpuinfo" (
 
 #print("Successfully Created CPUInfo Table")
 
-#   Index Creation ON cpuinfo(model) - IP (field)
-conn.execute("""CREATE INDEX "cpuinfo_ip" ON "cpuinfo" ("IP");""")
-
 #print("Indexed Cpuinfo Model ON IP Field")
 
 #   DiskInfo Model Creation
@@ -82,9 +77,6 @@ conn.execute(("""CREATE TABLE "diskinfo" (
 
 #print("Successfully Created DiskInfo Table")
 
-#   Index Creation ON diskinfo(model) - IP (field)
-conn.execute("""CREATE INDEX "diskinfo_ip" ON "diskinfo" ("IP");""")
-
 #print("Indexed Diskinfo Model ON IP Field")
 
 #   DiskDetail Model Creation
@@ -100,9 +92,6 @@ conn.execute(("""CREATE TABLE "diskdetail" (
 );"""))
 
 #print("Successfully Created DiskDetail Table")
-
-#   Index Creation ON diskdetail(model) - IP (field)
-conn.execute("""CREATE INDEX "diskdetail_ip" ON "diskdetail" ("IP");""")
 
 #print("Indexed DiskDetail Model ON IP Field")
 
@@ -124,3 +113,10 @@ conn.execute(("""CREATE TABLE "memorydetail" (
 
 #print("Successfully Created MemoryDetail Table")
 print("Successfully created models")
+
+
+
+conn.execute("""CREATE INDEX "user_ip" ON "user" ("IP");""")  #   Index Creation ON user(model) - IP (field)
+conn.execute("""CREATE INDEX "diskdetail_ip" ON "diskdetail" ("IP");""")    #   Index Creation ON diskdetail(model) - IP (field)
+conn.execute("""CREATE INDEX "diskinfo_ip" ON "diskinfo" ("IP");""")    #   Index Creation ON diskinfo(model) - IP (field)
+conn.execute("""CREATE INDEX "cpuinfo_ip" ON "cpuinfo" ("IP");""")  #   Index Creation ON cpuinfo(model) - IP (field)
