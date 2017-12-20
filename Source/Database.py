@@ -79,3 +79,6 @@ conn.execute(("""CREATE TABLE "diskinfo" (
                  "IP" INTEGER NOT NULL 
                  REFERENCES "system" ("ID")
 );"""))
+
+print("Successfully Created DiskInfo Table")
+
