@@ -101,3 +101,9 @@ conn.execute(("""CREATE TABLE "diskdetail" (
 );"""))
 
 print("Successfully Created DiskDetail Table")
+
+
+#   Index Creation ON diskdetail(model) - IP (field)
+conn.execute("""CREATE INDEX "diskdetail_ip" ON "diskdetail" ("IP");""")
+
+print("Indexed DiskDetail Model ON IP Field")
