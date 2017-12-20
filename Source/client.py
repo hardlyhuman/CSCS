@@ -60,7 +60,7 @@ if __name__ == '__main__':
     MemoryDetail["BufferMemory"] = MemoryInfo.buffers
     MemoryDetail["ActiveMemory"] = MemoryInfo.active
     MemoryDetail["InactiveMemory"] = MemoryInfo.inactive
-    MemoryDetail["SahredMemory"] = MemoryInfo.shared
+    MemoryDetail["SharedMemory"] = MemoryInfo.shared
     
     print(MemoryDetail)
 
