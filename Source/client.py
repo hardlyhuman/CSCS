@@ -12,12 +12,16 @@
 
 
 
-import os, sys, re, json
+import os
+import re
+import sys
+import json
 from Crypto.Cipher import AES
 from time import time
 import psutil
 from Crypto import Random
 import base64
+import hashlib
 
 BS = 16
 pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -47,6 +51,8 @@ if __name__ == '__main__':
     users = dict()
     CPUDetail = dict()
     MemoryDetail = dict()
+    SwapDetail = dict()
+    DiskDetail = dict()
 
     MemoryInfo = psutil.virtual_memory()
     SwapInfo = psutil.swap_memory()
@@ -61,8 +67,15 @@ if __name__ == '__main__':
     MemoryDetail["ActiveMemory"] = MemoryInfo.active
     MemoryDetail["InactiveMemory"] = MemoryInfo.inactive
     MemoryDetail["SharedMemory"] = MemoryInfo.shared
-    
-    print(MemoryDetail)
+
+    # print(SwapInfo)
+
+    SwapDetail["Total"] = SwapInfo.total
+    SwapDetail["Used"] = SwapInfo.used
+    SwapDetail["Free"] = SwapInfo.free
+    SwapDetail["Percent"] = SwapInfo.percent
+    SwapDetail["SIN"] = SwapInfo.sin
+    SwapDetail["SOUT"] = SwapInfo.sout
 
     for partition in psutil.disk_partitions():
         """
@@ -78,6 +91,11 @@ if __name__ == '__main__':
         #  If not successful, C:// directory disk usage statistics are obtained
     except:
         DiskUsage = psutil.disk_usage('C:\\')
+
+    DiskDetail["TotalDisk"] = DiskUsage.total
+    DiskDetail["UsedDisk"] = DiskUsage.used
+    DiskDetail["FreeDisk"] = DiskUsage.free
+    DiskDetail["Percent"] = DiskUsage.percent
 
     # print(DiskUsage)
 
@@ -98,6 +116,40 @@ if __name__ == '__main__':
 
     #    print(CPUDetail)
 
-    FinalResult = dict(OS=sys.platform)#, MemoryDetail=dict([(k, str(v)) for k, v in MemoryInfo.items()]))
+    FinalResult = dict(OS=sys.platform, MemoryDetail=MemoryDetail, SwapDetail=SwapDetail, DiskInfo=DiskInfo,
+                       DiskDetail=DiskDetail, CPUDetail=CPUDetail)
+
+    if os.name == 'nt':
+        import win32evtlog
+
+        host = 'localhost'
+        type_of_log = 'Security'
+        hand = win32evtlog.OpenEventLog(host, type_of_log)
+        readbck = win32evtlog.EVENTLOG_BACKWARDS_READ
+        readsqntl = win32evtlog.EVENTLOG_SEQUENTIAL_READ
+        flags = readbck | readsqntl
+        total = win32evtlog.GetNumberOfEventLogRecords(hand)
+        events = win32evtlog.ReadEventLog(hand, flags, 0)
+        if events:
+            formatedEvents = ''
+            for event in events:
+                formatedEvents += 'Event Category: ' + str(event.EventCategory)
+                formatedEvents += '\nTime Generated: ' + str(event.TimeGenerated)
+                formatedEvents += '\nSource Name: ' + event.SourceName
+                formatedEvents += '\nEvent ID: ' + str(event.EventID)
+                formatedEvents += '\nEvent Type:' + str(event.EventType) + '\n'
+            # Adds Logs to the result dictionary
+            FinalResult["logs"] = str(formatedEvents)
 
     print(FinalResult)
+
+    # Converts the result dictionary into a json string
+    Result = json.dumps(FinalResult)
+
+    #  print json_result
+
+    #  Calls the encrypt function to encrypt the json string
+    temp = AESCipher('This is test')
+
+    msg = temp.encrypt(Result)
+    print(msg)
