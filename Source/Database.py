@@ -4,7 +4,7 @@
 # __copyright__ = "Copyright 2017, Sri Harsha"
 # __Team__ = ["Sri Harsha"]
 # __license__ = "GNU General Public License v3.0"
-# __version__ = "0.3"
+# __version__ = "0.4"
 # __maintainer__ = "Sri Harsha"
 # __email__ = "sriharsha.g15@iiits.in"
 # __status__ = "Development"
