@@ -91,6 +91,18 @@ conn.execute(("""CREATE TABLE "diskdetail" (
                  REFERENCES "system" ("ID")
 );"""))
 
+#   SwapDetail Model Creation
+conn.execute(("""CREATE TABLE "swapdetail" (
+                 "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 "Total" BIGINT NOT NULL,
+                 "Used" BIGINT NOT NULL,
+                 "Free" BIGINT NOT NULL,
+                 "Percent" DOUBLE NOT NULL,
+                 "EntryDate" DATETIME NULL,
+                 "IP" INTEGER NOT NULL
+                 REFERENCES "system" ("ID")
+);"""))
+
 #print("Successfully Created DiskDetail Table")
 
 #print("Indexed DiskDetail Model ON IP Field")
