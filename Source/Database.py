@@ -87,7 +87,6 @@ conn.execute("""CREATE INDEX "diskinfo_ip" ON "diskinfo" ("IP");""")
 
 print("Indexed Diskinfo Model ON IP Field")
 
-
 #   DiskDetail Model Creation
 conn.execute(("""CREATE TABLE "diskdetail" (
                  "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -102,8 +101,25 @@ conn.execute(("""CREATE TABLE "diskdetail" (
 
 print("Successfully Created DiskDetail Table")
 
-
 #   Index Creation ON diskdetail(model) - IP (field)
 conn.execute("""CREATE INDEX "diskdetail_ip" ON "diskdetail" ("IP");""")
 
 print("Indexed DiskDetail Model ON IP Field")
+
+
+#   MemoryDetail Model Creation
+conn.execute(("""CREATE TABLE "memorydetail" (
+                 "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 "TotalMemory" BIGINT NOT NULL,
+                 "AvailMemory" BIGINT NOT NULL,
+                 "Percent" DOUBLE NOT NULL,
+                 "UsedMemory" BIGINT NOT NULL,
+                 "FreeMemory" BIGINT NOT NULL,
+                 "CacheMemory" BIGINT NULL,
+                 "BufferMemory" BIGINT NULL,
+                 "EntryDate" DATETIME NULL,
+                 "IP" INTEGER NOT NULL
+                 REFERENCES "system" ("ID") 
+);"""))
+
+print("Successfully Created MemoryDetail Table")
