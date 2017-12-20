@@ -76,5 +76,6 @@ conn.execute(("""CREATE TABLE "diskinfo" (
                  "MountPoint" VARCHAR(30) NULL,
                  "FSType" VARCHAR(30) NULL,
                  "OPTS" TEXT NULL,
-                 "EntryDate" DATETIME NULL
+                 "EntryDate" DATETIME NULL,
+                 "IP" INTEGER NOT NULL 
 );"""))
