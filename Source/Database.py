@@ -106,6 +106,9 @@ conn.execute(("""CREATE TABLE "memorydetail" (
                  "FreeMemory" BIGINT NOT NULL,
                  "CacheMemory" BIGINT NULL,
                  "BufferMemory" BIGINT NULL,
+                 "ActiveMemory" BIGINT NULL,
+                 "InactiveMemory" BIGINT NULL,
+                 "SharedMemory" BIGINT NULL,
                  "EntryDate" DATETIME NULL,
                  "IP" INTEGER NOT NULL
                  REFERENCES "system" ("ID") 
