@@ -67,3 +67,14 @@ print("Successfully Created CPUInfo Table")
 conn.execute("""CREATE INDEX "cpuinfo_ip" ON "cpuinfo" ("IP");""")
 
 print("Indexed cpuinfo Model ON IP Field")
+
+
+#   DiskInfo Model Creation
+conn.execute(("""CREATE TABLE "diskinfo" (
+                 "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 "AgentName" VARCHAR(30) NULL ,
+                 "MountPoint" VARCHAR(30) NULL,
+                 "FSType" VARCHAR(30) NULL,
+                 "OPTS" TEXT NULL,
+                 "EntryDate" DATETIME NULL
+);"""))
