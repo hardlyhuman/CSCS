@@ -88,4 +88,16 @@ conn.execute("""CREATE INDEX "diskinfo_ip" ON "diskinfo" ("IP");""")
 print("Indexed Diskinfo Model ON IP Field")
 
 
-#
+#   DiskDetail Model Creation
+conn.execute(("""CREATE TABLE "diskdetail" (
+                 "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 "TotalSpace" BIGINT NOT NULL,
+                 "UsedSpace" BIGINT NOT NULL,
+                 "FreeSpace" BIGINT NOT NULL,
+                 "Percent" DOUBLE NOT NULL,
+                 "EntryDate" DATETIME NULL,
+                 "IP" INTEGER NOT NULL
+                 REFERENCES "system" ("ID")
+);"""))
+
+print("Successfully Created DiskDetail Table")
