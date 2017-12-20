@@ -66,7 +66,7 @@ print("Successfully Created CPUInfo Table")
 #   Index Creation ON cpuinfo(model) - IP (field)
 conn.execute("""CREATE INDEX "cpuinfo_ip" ON "cpuinfo" ("IP");""")
 
-print("Indexed cpuinfo Model ON IP Field")
+print("Indexed Cpuinfo Model ON IP Field")
 
 #   DiskInfo Model Creation
 conn.execute(("""CREATE TABLE "diskinfo" (
@@ -82,3 +82,7 @@ conn.execute(("""CREATE TABLE "diskinfo" (
 
 print("Successfully Created DiskInfo Table")
 
+#   Index Creation ON diskinfo(model) - IP (field)
+conn.execute("""CREATE INDEX "diskinfo_ip" ON "diskinfo" ("IP");""")
+
+print("Indexed Diskinfo Model ON IP Field")
