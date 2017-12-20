@@ -25,7 +25,7 @@ conn.execute(("""CREATE TABLE "system" (
                 "EntryDate" DATETIME NULL 
                 );"""))
 
-print("Successfully Created System Table")
+#print("Successfully Created System Table")
 
 #   User Model Creation
 conn.execute(("""CREATE TABLE "user" (
@@ -36,12 +36,12 @@ conn.execute(("""CREATE TABLE "user" (
                  REFERENCES "system" ("ID") 
                  );"""))
 
-print("Successfully Created User Table")
+#print("Successfully Created User Table")
 
 #   Index Creation ON user(model) - IP (field)
 conn.execute("""CREATE INDEX "user_ip" ON "user" ("IP");""")
 
-print("Indexed User Model ON IP Field")
+#print("Indexed User Model ON IP Field")
 
 #   CPUInfo Model Creation
 conn.execute(("""CREATE TABLE "cpuinfo" (
@@ -61,12 +61,12 @@ conn.execute(("""CREATE TABLE "cpuinfo" (
                 REFERENCES "system" ("ID")
 );"""))
 
-print("Successfully Created CPUInfo Table")
+#print("Successfully Created CPUInfo Table")
 
 #   Index Creation ON cpuinfo(model) - IP (field)
 conn.execute("""CREATE INDEX "cpuinfo_ip" ON "cpuinfo" ("IP");""")
 
-print("Indexed Cpuinfo Model ON IP Field")
+#print("Indexed Cpuinfo Model ON IP Field")
 
 #   DiskInfo Model Creation
 conn.execute(("""CREATE TABLE "diskinfo" (
@@ -80,12 +80,12 @@ conn.execute(("""CREATE TABLE "diskinfo" (
                  REFERENCES "system" ("ID")
 );"""))
 
-print("Successfully Created DiskInfo Table")
+#print("Successfully Created DiskInfo Table")
 
 #   Index Creation ON diskinfo(model) - IP (field)
 conn.execute("""CREATE INDEX "diskinfo_ip" ON "diskinfo" ("IP");""")
 
-print("Indexed Diskinfo Model ON IP Field")
+#print("Indexed Diskinfo Model ON IP Field")
 
 #   DiskDetail Model Creation
 conn.execute(("""CREATE TABLE "diskdetail" (
@@ -99,12 +99,12 @@ conn.execute(("""CREATE TABLE "diskdetail" (
                  REFERENCES "system" ("ID")
 );"""))
 
-print("Successfully Created DiskDetail Table")
+#print("Successfully Created DiskDetail Table")
 
 #   Index Creation ON diskdetail(model) - IP (field)
 conn.execute("""CREATE INDEX "diskdetail_ip" ON "diskdetail" ("IP");""")
 
-print("Indexed DiskDetail Model ON IP Field")
+#print("Indexed DiskDetail Model ON IP Field")
 
 
 #   MemoryDetail Model Creation
@@ -122,4 +122,5 @@ conn.execute(("""CREATE TABLE "memorydetail" (
                  REFERENCES "system" ("ID") 
 );"""))
 
-print("Successfully Created MemoryDetail Table")
+#print("Successfully Created MemoryDetail Table")
+print("Successfully created models")
