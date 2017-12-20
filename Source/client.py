@@ -42,15 +42,27 @@ class AESCipher:
 
 
 if __name__ == '__main__':
-    FinalResult = []
+    FinalResult = dict()
     DiskInfo = dict()
     users = dict()
     CPUDetail = dict()
+    MemoryDetail = dict()
 
     MemoryInfo = psutil.virtual_memory()
     SwapInfo = psutil.swap_memory()
 
-    # print(MemoryInfo.total)
+    MemoryDetail["TotalMemory"] = MemoryInfo.total
+    MemoryDetail["AvailMemory"] = MemoryInfo.available
+    MemoryDetail["Percent"] = MemoryInfo.percent
+    MemoryDetail["UsedMemory"] = MemoryInfo.used
+    MemoryDetail["FreeMemory"] = MemoryInfo.free
+    MemoryDetail["CacheMemory"] = MemoryInfo.cached
+    MemoryDetail["BufferMemory"] = MemoryInfo.buffers
+    MemoryDetail["ActiveMemory"] = MemoryInfo.active
+    MemoryDetail["InactiveMemory"] = MemoryInfo.inactive
+    MemoryDetail["SahredMemory"] = MemoryInfo.shared
+    
+    print(MemoryDetail)
 
     for partition in psutil.disk_partitions():
         """
@@ -59,7 +71,7 @@ if __name__ == '__main__':
         """
         DiskInfo[partition[0]] = partition._asdict()
 
-#    print(DiskInfo)
+    # print(DiskInfo)
 
     try:
         DiskUsage = psutil.disk_usage('/')
@@ -67,13 +79,12 @@ if __name__ == '__main__':
     except:
         DiskUsage = psutil.disk_usage('C:\\')
 
-#    print(DiskUsage)
+    # print(DiskUsage)
 
     for user in psutil.users():
         users[user[0]] = dict([(k, str(v)) for k, v in user._asdict().items()])
 
-
-#    print(users)
+    # print(users)
 
     CPUDetail["BootTime"] = time() - psutil.boot_time()
     CPUDetail["Usage"] = psutil.cpu_percent()
@@ -85,6 +96,8 @@ if __name__ == '__main__':
     CPUDetail["MaxFreq"] = psutil.cpu_freq().max
     CPUDetail["CurrFreq"] = psutil.cpu_freq().current
 
-#    print(CPUDetail)
+    #    print(CPUDetail)
 
+    FinalResult = dict(OS=sys.platform)#, MemoryDetail=dict([(k, str(v)) for k, v in MemoryInfo.items()]))
 
+    print(FinalResult)
