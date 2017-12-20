@@ -43,8 +43,8 @@ class AESCipher:
 
 if __name__ == '__main__':
     FinalResult = []
-    DiskInfo = {}
-    users = {}
+    DiskInfo = dict()
+    users = dict()
     CPUDetail = dict()
 
     MemoryInfo = psutil.virtual_memory()
@@ -59,19 +59,32 @@ if __name__ == '__main__':
         """
         DiskInfo[partition[0]] = partition._asdict()
 
-    # print(DiskInfo)
+#    print(DiskInfo)
+
     try:
         DiskUsage = psutil.disk_usage('/')
         #  If not successful, C:// directory disk usage statistics are obtained
     except:
         DiskUsage = psutil.disk_usage('C:\\')
 
-    # print(DiskUsage)
+#    print(DiskUsage)
 
     for user in psutil.users():
         users[user[0]] = dict([(k, str(v)) for k, v in user._asdict().items()])
 
 
-    # print(users)
+#    print(users)
+
+    CPUDetail["BootTime"] = time() - psutil.boot_time()
+    CPUDetail["Usage"] = psutil.cpu_percent()
+    CPUDetail["Count"] = psutil.cpu_count()
+    CPUDetail["Interrupts"] = psutil.cpu_stats().interrupts
+    CPUDetail["SoftInterrupts"] = psutil.cpu_stats().soft_interrupts
+    CPUDetail["SystemCalls"] = psutil.cpu_stats().syscalls
+    CPUDetail["MinFreq"] = psutil.cpu_freq().min
+    CPUDetail["MaxFreq"] = psutil.cpu_freq().max
+    CPUDetail["CurrFreq"] = psutil.cpu_freq().current
+
+#    print(CPUDetail)
 
 
