@@ -4,7 +4,7 @@
 # __copyright__ = "Copyright 2017, Sri Harsha"
 # __Team__ = ["Sri Harsha"]
 # __license__ = "GNU General Public License v3.0"
-# __version__ = "0.4"
+# __version__ = "0.5"
 # __maintainer__ = "Sri Harsha"
 # __email__ = "sriharsha.g15@iiits.in"
 # __status__ = "Development"
@@ -106,6 +106,9 @@ conn.execute(("""CREATE TABLE "memorydetail" (
                  "FreeMemory" BIGINT NOT NULL,
                  "CacheMemory" BIGINT NULL,
                  "BufferMemory" BIGINT NULL,
+                 "ActiveMemory" BIGINT NULL,
+                 "InactiveMemory" BIGINT NULL,
+                 "SharedMemory" BIGINT NULL,
                  "EntryDate" DATETIME NULL,
                  "IP" INTEGER NOT NULL
                  REFERENCES "system" ("ID") 
