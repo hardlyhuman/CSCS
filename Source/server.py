@@ -1,28 +1,19 @@
+import base64
+import codecs
+import hashlib
+import json
+import os
+import smtplib
+import sqlite3
+import sys
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import paramiko
-
-import codecs
 import xmltodict
-
-import os
-import sys
-
-from Crypto.Cipher import AES
-
-import json
-
-from datetime import datetime
-
-import sqlite3
-
-import smtplib
-
-# from email.MIMEText import MIMEText
-import hashlib
-import base64
 from Crypto import Random
+from Crypto.Cipher import AES
 
 BS = 16
 pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -124,7 +115,7 @@ def sshconn(ip, port, username, password):
 
 def sender(toaddr, body, current, limit, subject):
     try:
-        Opener = codecs.open("EmailConfig.json", encoding = "UTF-8")
+        Opener = codecs.open("EmailConfig.json", encoding="UTF-8")
         Emailer = json.loads(Opener.read())
         Opener.close()
         fromaddr = Emailer["email_configurations"]["username"]
@@ -160,7 +151,7 @@ def sender(toaddr, body, current, limit, subject):
 
 if __name__ == '__main__':
     try:
-        XMLOpener = codecs.open("config.xml", encoding = "UTF-8")
+        XMLOpener = codecs.open("config.xml", encoding="UTF-8")
         data = XMLOpener.read()
         XMLOpener.close()
 
@@ -176,4 +167,56 @@ if __name__ == '__main__':
         print("Connection Error")
         quit()
 
-    
+    clients = xmltodict.parse(data)
+
+    for client in clients:
+        host = str(clients[client]["client"]["@ip"])
+        port = int(clients[client]["client"]["@port"])
+        uname = str(clients[client]["client"]["@username"])
+        pswd = str(clients[client]["client"]["@password"])
+        FinalOutput = sshconn(host, port, uname, pswd)
+        time = str(datetime.now())
+
+        if FinalOutput["MemoryDetail"]["Percent"] > clients[client]["client"]["alert"][0]["@limit"]:
+            sender(uname, "Dear Client," + "\n" + "Memory Limit Exceeded", FinalOutput["MemoryDetail"]["Percent"],
+                   clients[client]["client"]["alert"][0]["@limit"], "Urgent! Memory Usage limit exceeded")
+
+        if FinalOutput["CPUDetail"]["Usage"] > clients[client]["client"]["alert"][1]["@limit"]:
+            sender(uname, "Dear Client," + "\n" + "CPU Usage Limit Exceeded", FinalOutput["CPUDetail"]["Usage"],
+                   clients[client]["client"]["alert"][1]["@limit"], "Urgent! CPU Usage limit exceeded")
+
+        conn = sqlite3.connect('CSCSMaster.db')
+        print("Successful connection with database")
+
+        k = conn.execute("SELECT ID FROM system WHERE IP = '" + host + "';").fetchall()
+        value = "'" + host + "', '" + FinalOutput["OS"] + "', '" + time + "'"
+        if len(k) == 0:
+            conn.execute("INSERT INTO system (IP, OS, EntryDate) VALUES (" + value + ");")
+
+        for user in FinalOutput["User"]:
+            value = "'" + FinalOutput["User"][user]["name"] + "', '" + FinalOutput["User"][user]["terminal"] + \
+                    "', '" + FinalOutput["User"][user]["host"] + "', '" + FinalOutput["User"][user]["started"] + \
+                    "', '" + time + "', (SELECT ID FROM system WHERE IP = '" + host + "')"
+
+            conn.execute(("INSERT INTO user (NAME , TERMINAL, HOST, STARTED, EntryDate, IP) VALUES (" + value + ");"))
+
+        if "Logs" in FinalOutput.iterkeys():
+            value = "'" + FinalOutput["CPUDetail"]["BootTime"] + "', '" + FinalOutput["CPUDetail"]["Usage"] + "', '" + \
+                    FinalOutput["CPUDetail"]["Count"] + "', '" + FinalOutput["CPUDetail"]["Interrupts"] + "', '" + \
+                    FinalOutput["CPUDetail"]["SoftInterrupts"] + "', '" + FinalOutput["CPUDetail"]["SystemCalls"] + \
+                    "', '" + FinalOutput["CPUDetail"]["MinFreq"] + "', '" + FinalOutput["CPUDetail"]["MaxFreq"] + \
+                    "', '" + FinalOutput["CPUDetail"]["CurrFreq"] + "', '" + FinalOutput["Logs"] + "', '" + time + \
+                    "', (SELECT ID FROM system WHERE IP = '" + host + "')"
+
+            conn.execute("INSERT INTO CPUDetail (BootTime, Usage, Count, Interrupts, SoftInterrupts, SystemCalls, "
+                         "MinFreq, MaxFreq, CurrFreq, Logs, EntryDate, IP) VALUES (" + value + ");")
+        else:
+            value = "'" + FinalOutput["CPUDetail"]["BootTime"] + "', '" + FinalOutput["CPUDetail"]["Usage"] + "', '" + \
+                    FinalOutput["CPUDetail"]["Count"] + "', '" + FinalOutput["CPUDetail"]["Interrupts"] + "', '" + \
+                    FinalOutput["CPUDetail"]["SoftInterrupts"] + "', '" + FinalOutput["CPUDetail"]["SystemCalls"] + \
+                    "', '" + FinalOutput["CPUDetail"]["MinFreq"] + "', '" + FinalOutput["CPUDetail"]["MaxFreq"] + \
+                    "', '" + FinalOutput["CPUDetail"]["CurrFreq"] + "', '" + time + \
+                    "', (SELECT ID FROM system WHERE IP = '" + host + "')"
+
+            conn.execute("INSERT INTO CPUDetail (BootTime, Usage, Count, Interrupts, SoftInterrupts, SystemCalls, "
+                         "MinFreq, MaxFreq, CurrFreq, EntryDate, IP) VALUES (" + value + ");")
