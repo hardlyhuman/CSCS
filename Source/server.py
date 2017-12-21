@@ -156,3 +156,24 @@ def sender(toaddr, body, current, limit, subject):
     server.login(fromaddr, pswd)
     server.sendmail(fromaddr, toaddr, mail.as_string())
     server.quit()
+
+
+if __name__ == '__main__':
+    try:
+        XMLOpener = codecs.open("config.xml", encoding = "UTF-8")
+        data = XMLOpener.read()
+        XMLOpener.close()
+
+    except IOError:
+        print("Cannot open file")
+        quit()
+
+    except FileNotFoundError:
+        print("Check whether file exists or not")
+        quit()
+
+    except ConnectionError:
+        print("Connection Error")
+        quit()
+
+    
