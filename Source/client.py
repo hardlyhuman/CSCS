@@ -154,3 +154,5 @@ if __name__ == '__main__':
 
     message = temp.encrypt(Result)
     #print(message)
+    for each in FinalResult["DiskInfo"]:
+        print(FinalResult["DiskInfo"][each]["device"])
