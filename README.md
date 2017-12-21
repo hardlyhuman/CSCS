@@ -33,6 +33,12 @@ following specifications.
 - SMTP ie smtplib has been used to send emails. 
 - Pycrypto has been used for encryption purposes.
 
+Clone the repository into a directory of your own choice.
+
+`git clone https://github.com/SriHarshaGajavalli/CSCS`
+`cd CSCS`
+
+
 ##Installation
 
 - create a virtual environment
@@ -60,6 +66,6 @@ following specifications.
    `python server.py`
    
 
-
+Do star it, follow me, if you like this. Stay tuned to me for more updates!
 
 
