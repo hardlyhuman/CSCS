@@ -220,3 +220,11 @@ if __name__ == '__main__':
 
             conn.execute("INSERT INTO CPUDetail (BootTime, Usage, Count, Interrupts, SoftInterrupts, SystemCalls, "
                          "MinFreq, MaxFreq, CurrFreq, EntryDate, IP) VALUES (" + value + ");")
+
+        for each in FinalOutput["DiskInfo"]:
+            value = "'" + FinalOutput["DiskInfo"][each]["device"] + "', '" + \
+                    FinalOutput["DiskInfo"][each]["mountpoint"] + "', '" + FinalOutput["DiskInfo"][each]["fstype"] + \
+                    "', '" + FinalOutput["DiskInfo"][each]["opts"] + "', '" + time + \
+                    "', (SELECT ID FROM system WHERE IP = '" + host + "')"
+            conn.execute("INSERT INTO diskinfo (AgentName, MountPoint, FSType, OPTS, EntryDate, IP) \
+                                  VALUES (" + value + ");")
