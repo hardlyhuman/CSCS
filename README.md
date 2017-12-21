@@ -35,4 +35,9 @@ following specifications.
 
 ## Usage
 
+1. change the working directory to Source using cd.
+	'cd Source/'
+2. 
+
+
 
