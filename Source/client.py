@@ -149,7 +149,8 @@ if __name__ == '__main__':
     #  print json_result
 
     #  Calls the encrypt function to encrypt the json string
-    temp = AESCipher('This is test')
+    key = 'CrossOver Project'
+    temp = AESCipher(key)
 
     message = temp.encrypt(Result)
     print(message)
