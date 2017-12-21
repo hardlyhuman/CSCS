@@ -12,16 +12,16 @@
 
 
 
-import os
-import re
-import sys
-import json
-from Crypto.Cipher import AES
-from time import time
-import psutil
-from Crypto import Random
 import base64
 import hashlib
+import json
+import os
+import sys
+from time import time
+
+import psutil
+from Crypto import Random
+from Crypto.Cipher import AES
 
 BS = 16
 pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -151,5 +151,5 @@ if __name__ == '__main__':
     #  Calls the encrypt function to encrypt the json string
     temp = AESCipher('This is test')
 
-    msg = temp.encrypt(Result)
-    print(msg)
+    message = temp.encrypt(Result)
+    print(message)
