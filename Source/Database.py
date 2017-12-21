@@ -4,7 +4,7 @@
 # __copyright__ = "Copyright 2017, Sri Harsha"
 # __Team__ = ["Sri Harsha"]
 # __license__ = "GNU General Public License v3.0"
-# __version__ = "0.5"
+# __version__ = "0.7"
 # __maintainer__ = "Sri Harsha"
 # __email__ = "sriharsha.g15@iiits.in"
 # __status__ = "Development"
@@ -90,6 +90,8 @@ conn.execute(("""CREATE TABLE "swapdetail" (
                  "Used" BIGINT NOT NULL,
                  "Free" BIGINT NOT NULL,
                  "Percent" DOUBLE NOT NULL,
+                 "SIN" BIGINT NULL,
+                 "SOUT" BIGINT NULL,
                  "EntryDate" DATETIME NULL,
                  "IP" INTEGER NOT NULL
                  REFERENCES "system" ("ID")
