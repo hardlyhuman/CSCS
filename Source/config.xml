@@ -1,0 +1,6 @@
+<clients>
+	<client ip="10.16.68.38" port="22" username="username" password="password" mail="asa@asda.com">
+		<alert type="memory" limit="25%" />
+		<alert type="cpu" limit="25%" />
+	</client>
+</clients>
