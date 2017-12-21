@@ -31,6 +31,7 @@ conn.execute(("""CREATE TABLE "system" (
 conn.execute(("""CREATE TABLE "user" (
                  "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                  "NAME" VARCHAR(30) NULL ,
+                 "TERMINAL" VARCHAR(30) NULL,
                  "HOST" VARCHAR(30) NULL ,
                  "IP" INTEGER NOT NULL
                  REFERENCES "system" ("ID") 
