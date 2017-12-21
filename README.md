@@ -33,11 +33,33 @@ following specifications.
 - SMTP ie smtplib has been used to send emails. 
 - Pycrypto has been used for encryption purposes.
 
+##Installation
+
+- create a virtual environment
+
+  `mkvirtualenv cscs` 
+- run (Make sure python 3.5.x is installed before you run this)
+
+  `sudo pip3 install -r Source/requirements.txt`
+- Start the ssh service in Linux: (Ensure ssh service is started in all the clients and python 3.5.x is installed) 
+
+  `systemctl start ssh`
+
+
 ## Usage
 
-1. change the working directory to Source using cd.
-	'cd Source/'
-2. 
+- change the working directory to Source using cd.
+	
+	`cd Source/`
+- To setup the database, run
+
+   `python Database.py`
+- Edit config.xml and email_config.json with appropriate configurations 
+- On server, run
+
+   `python server.py`
+   
+
 
 
 
