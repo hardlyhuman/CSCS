@@ -1,3 +1,18 @@
+###################################################
+# CSCS/Source/server.py: Consists of the server script for the Client Statistics Collection System
+# __author__ = "Sri Harsha"
+# __copyright__ = "Copyright 2017, Sri Harsha"
+# __Team__ = ["Sri Harsha"]
+# __license__ = "GNU General Public License v3.0"
+# __version__ = "1.0"
+# __maintainer__ = "Sri Harsha"
+# __email__ = "sriharsha.g15@iiits.in"
+# __status__ = "Development"
+####################################################
+
+
+
+
 import base64
 import codecs
 import hashlib
@@ -226,5 +241,35 @@ if __name__ == '__main__':
                     FinalOutput["DiskInfo"][each]["mountpoint"] + "', '" + FinalOutput["DiskInfo"][each]["fstype"] + \
                     "', '" + FinalOutput["DiskInfo"][each]["opts"] + "', '" + time + \
                     "', (SELECT ID FROM system WHERE IP = '" + host + "')"
-            conn.execute("INSERT INTO diskinfo (AgentName, MountPoint, FSType, OPTS, EntryDate, IP) \
-                                  VALUES (" + value + ");")
+            conn.execute("INSERT INTO diskinfo (AgentName, MountPoint, FSType, OPTS, EntryDate, IP) VALUES (" +
+                         value + ");")
+
+        value = "'" + FinalOutput["DiskDetail"]["TotalDisk"] + "', '" + FinalOutput["DiskDetail"]["UsedDisk"] + \
+                "', '" + FinalOutput["DiskDetail"]["FreeDisk"] + "', '" + FinalOutput["DiskDetail"]["Percent"] + \
+                "', '" + time + "', (SELECT ID FROM system WHERE IP = '" + host + "')"
+        conn.execute("INSERT INTO diskdetail (TotalDisk, UsedDisk, FreeDisk, Percent, EntryDate, IP) VALUES (" +
+                     value + ");")
+
+        value = "'" + FinalOutput["SwapDetail"]["Total"] + "', '" + FinalOutput["SwapDetail"]["Used"] + \
+                "', '" + FinalOutput["SwapDetail"]["Free"] + "', '" + FinalOutput["SwapDetail"]["Percent"] + \
+                "', '" + FinalOutput["SwapDetail"]["SIN"] + "', '" + FinalOutput["SwapDetail"]["SOUT"] + "', '" + \
+                time + "', (SELECT ID FROM system WHERE IP = '" + host + "')"
+        conn.execute("INSERT INTO swapdetail (Total, Used, Free, Percent, SIN, SOUT, EntryDate, IP) VALUES (" +
+                     value + ");")
+
+        value = "'" + FinalOutput["MemoryDetail"]["TotalMemory"] + "', '" + FinalOutput["MemoryDetail"]["AvailMemory"] + \
+                "', '" + FinalOutput["MemoryDetail"]["Percent"] + "', '" + FinalOutput["MemoryDetail"]["UsedMemory"] + \
+                "', '" + FinalOutput["MemoryDetail"]["FreeMemory"] + "', '" + \
+                FinalOutput["MemoryDetail"]["CacheMemory"] + "', '" + FinalOutput["MemoryDetail"]["BufferMemory"] + \
+                "', '" + FinalOutput["MemoryDetail"]["ActiveMemory"] + "', '" + FinalOutput["MemoryDetail"][
+                    "InactiveMemory"] + \
+                "', '" + FinalOutput["MemoryDetail"]["SharedMemory"] + "', '" + time + "', (SELECT ID FROM system " \
+                                                                                       "WHERE IP = '" + host + "') "
+
+        conn.execute("INSERT INTO memory (TotalMemory, AvailMemory, Percent, UsedMemory, FreMemory, CacheMemory, "
+                     "BufferMemory, ActiveMemory, InactiveMemory, SharedMemory, EntryDate, ID) VALUES (" +
+                     value + ");")
+
+        conn.commit()
+        print("Database updated with required entried")
+        conn.close()
