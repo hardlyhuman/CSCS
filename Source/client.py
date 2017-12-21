@@ -117,7 +117,7 @@ if __name__ == '__main__':
     #    print(CPUDetail)
 
     FinalResult = dict(OS=sys.platform, MemoryDetail=MemoryDetail, SwapDetail=SwapDetail, DiskInfo=DiskInfo,
-                       DiskDetail=DiskDetail, CPUDetail=CPUDetail)
+                       DiskDetail=DiskDetail, User=users, CPUDetail=CPUDetail)
 
     if os.name == 'nt':
         import win32evtlog
@@ -139,7 +139,7 @@ if __name__ == '__main__':
                 formatedEvents += '\nEvent ID: ' + str(event.EventID)
                 formatedEvents += '\nEvent Type:' + str(event.EventType) + '\n'
             # Adds Logs to the result dictionary
-            FinalResult["logs"] = str(formatedEvents)
+            FinalResult["Logs"] = str(formatedEvents)
 
     print(FinalResult)
 
@@ -153,4 +153,4 @@ if __name__ == '__main__':
     temp = AESCipher(key)
 
     message = temp.encrypt(Result)
-    print(message)
+    #print(message)
