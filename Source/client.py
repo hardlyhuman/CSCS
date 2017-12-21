@@ -12,16 +12,16 @@
 
 
 
-import os
-import re
-import sys
-import json
-from Crypto.Cipher import AES
-from time import time
-import psutil
-from Crypto import Random
 import base64
 import hashlib
+import json
+import os
+import sys
+from time import time
+
+import psutil
+from Crypto import Random
+from Crypto.Cipher import AES
 
 BS = 16
 pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     #    print(CPUDetail)
 
     FinalResult = dict(OS=sys.platform, MemoryDetail=MemoryDetail, SwapDetail=SwapDetail, DiskInfo=DiskInfo,
-                       DiskDetail=DiskDetail, CPUDetail=CPUDetail)
+                       DiskDetail=DiskDetail, User=users, CPUDetail=CPUDetail)
 
     if os.name == 'nt':
         import win32evtlog
@@ -139,7 +139,7 @@ if __name__ == '__main__':
                 formatedEvents += '\nEvent ID: ' + str(event.EventID)
                 formatedEvents += '\nEvent Type:' + str(event.EventType) + '\n'
             # Adds Logs to the result dictionary
-            FinalResult["logs"] = str(formatedEvents)
+            FinalResult["Logs"] = str(formatedEvents)
 
     print(FinalResult)
 
@@ -149,7 +149,8 @@ if __name__ == '__main__':
     #  print json_result
 
     #  Calls the encrypt function to encrypt the json string
-    temp = AESCipher('This is test')
+    key = 'CrossOver Project'
+    temp = AESCipher(key)
 
-    msg = temp.encrypt(Result)
-    print(msg)
+    message = temp.encrypt(Result)
+    #print(message)
