@@ -4,7 +4,7 @@
 # __copyright__ = "Copyright 2017, Sri Harsha"
 # __Team__ = ["Sri Harsha"]
 # __license__ = "GNU General Public License v3.0"
-# __version__ = "0.6"
+# __version__ = "0.8"
 # __maintainer__ = "Sri Harsha"
 # __email__ = "sriharsha.g15@iiits.in"
 # __status__ = "Development"
@@ -153,6 +153,4 @@ if __name__ == '__main__':
     temp = AESCipher(key)
 
     message = temp.encrypt(Result)
-    #print(message)
-    for each in FinalResult["DiskInfo"]:
-        print(FinalResult["DiskInfo"][each]["device"])
+    print(message)
