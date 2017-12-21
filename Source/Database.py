@@ -25,7 +25,7 @@ conn.execute(("""CREATE TABLE "system" (
                 "EntryDate" DATETIME NULL 
                 );"""))
 
-#print("Successfully Created System Table")
+
 
 #   User Model Creation
 conn.execute(("""CREATE TABLE "user" (
@@ -37,10 +37,6 @@ conn.execute(("""CREATE TABLE "user" (
                  REFERENCES "system" ("ID") 
                  );"""))
 
-#print("Successfully Created User Table")
-
-
-#print("Indexed User Model ON IP Field")
 
 #   CPUInfo Model Creation
 conn.execute(("""CREATE TABLE "cpuinfo" (
@@ -60,9 +56,6 @@ conn.execute(("""CREATE TABLE "cpuinfo" (
                 REFERENCES "system" ("ID")
 );"""))
 
-#print("Successfully Created CPUInfo Table")
-
-#print("Indexed Cpuinfo Model ON IP Field")
 
 #   DiskInfo Model Creation
 conn.execute(("""CREATE TABLE "diskinfo" (
@@ -76,9 +69,7 @@ conn.execute(("""CREATE TABLE "diskinfo" (
                  REFERENCES "system" ("ID")
 );"""))
 
-#print("Successfully Created DiskInfo Table")
 
-#print("Indexed Diskinfo Model ON IP Field")
 
 #   DiskDetail Model Creation
 conn.execute(("""CREATE TABLE "diskdetail" (
@@ -104,9 +95,7 @@ conn.execute(("""CREATE TABLE "swapdetail" (
                  REFERENCES "system" ("ID")
 );"""))
 
-#print("Successfully Created DiskDetail Table")
 
-#print("Indexed DiskDetail Model ON IP Field")
 
 
 #   MemoryDetail Model Creation
@@ -127,7 +116,7 @@ conn.execute(("""CREATE TABLE "memorydetail" (
                  REFERENCES "system" ("ID") 
 );"""))
 
-#print("Successfully Created MemoryDetail Table")
+
 print("Successfully created models")
 
 
