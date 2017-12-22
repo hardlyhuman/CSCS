@@ -39,7 +39,7 @@ Clone the repository into a directory of your own choice.
 `cd CSCS`
 
 
-##Installation
+## Installation
 
 - create a virtual environment
 
