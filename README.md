@@ -2,7 +2,7 @@
 
 ## Overall Objective
 
-Implements architecture and design of a network based machine statistics collection system.
+Implements architecture and design of a network based client statistics collection system.
 
 ## Functional Requirements
 
